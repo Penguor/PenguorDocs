@@ -1,0 +1,4 @@
+root = true
+
+[*.md]
+insert_final_newline = true
