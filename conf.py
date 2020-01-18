@@ -45,7 +45,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
-html_logo = './logos/penguor-transparent-inverted.png'
+html_logo = './logos/penguor-transparent-inverted-text.png'
 html_theme_options = {
     'logo_only': True,
     'sticky_navigation': True
@@ -56,4 +56,4 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-master_doc = 'index'
+master_doc = 'docs/index'
