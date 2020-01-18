@@ -2,6 +2,4 @@
  What is Penguor?
 ******************
 
-Penguor is a data-oriented programming language.
-Once finished, the goal is to provide a language suited for development of applications iterating over large amounts of data, such as games, databases etc.
-
+Penguor is an in-development data-oriented programming language designed to help creators in the development of sizeable applications, such as games, databases and editing softwares.

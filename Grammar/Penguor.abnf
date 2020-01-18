@@ -1,0 +1,112 @@
+; Penguor Language
+; ----------------
+;
+; (c) Carl Schierig 2020
+; all rights reserved
+
+; abnf grammar according to https://tools.ietf.org/html/rfc2234
+
+program = head declaration* EOF
+
+
+
+head   = "!#" 1*2( define ":" IDENTIFIER ) *( "from"? call "include" call ) "#!"
+
+define = "library"
+       / "safety"
+
+
+
+declaration = sysDec
+            / compDec
+            / dtypeDec
+            / varDec
+            / functionDec
+            / statement
+
+
+sysDec   = "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+
+compDec  = "component" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+
+dtypeDec = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+
+
+
+statement = blockStmt
+          / ifStmt
+          / whileStmt
+          / forStmt
+          / doStmt
+          / switchStmt
+          / expressionStmt
+
+
+blockStmt      = "{" *declaration "}"
+
+ifStmt         = "if" "(" expression ")" "{" 1*statement "}" *elif [ else "{" statement+ "}" ]
+
+elif           = "elif" "{" statement+ "}"
+
+
+whileStmt      = "while" "(" expression ")" "{" 1*statement "}"
+
+forStmt        = "for" "(" varDec ":" IDENTIFIER ")" "{" 1*statement "}"
+
+doStmt         = "do" "{" 1*statement "}" "while" "(" expression ")"
+
+switchStmt     = "switch" "(" IDENTIFIER ")" "{" 1*( caseStmt ) [ "default" ":" statement* ] "}"
+
+caseStmt       = "case" "(" IDENTIFIER ")" ":" *statement
+
+expressionStmt = expression ";"
+
+
+
+expression      = assignment
+
+assignment      = [ call "." ] IDENTIFIER "=" assignment
+                /  logicOr
+
+logicOr       = logicAnd *( "||" logicAnd )
+
+logicAnd      = equality *( "&&" equality )
+
+equality       = relation *( ( "==" / "!=" ) relation )
+
+relation       = addition *( ( "<" /  ">" / "<=" / ">=" ) addition )
+
+addition       = multiplication *( ( "+" / "-" ) multiplication )
+
+multiplication = unary *( ( "*" / "/" ) unary )
+
+unary          = [ "!" / "-" ] unary / call / grouping
+
+call           = base *( "." IDENTIFIER / "(" [ arguments ] ")" )
+
+base           = IDENTIFIER / NUM / STRING / "true" / "false" / "null"
+
+grouping       = "(" expression ")"
+
+
+
+varDec      =  var IDENTIFIER IDENTIFIER [ "=" expression ] ";"
+
+functionDec = "fn" IDENTIFIER IDENTIFIER "(" [ parameters ] ")" blockStmt
+
+
+
+parameters = varDec *( "," varDec )
+
+arguments  = expression *( "," expression )
+
+
+
+; Regular grammar
+
+IDENTIFIER = ALPHA *( ALPHA / DIGIT ) 
+
+NUM = 1*DIGIT [ "." DIGIT+ ]
+    / *DIGIT "." 1*DIGIT
+
+STRING = DQUOTE *(CHAR) DQUOTE
