@@ -7,5 +7,6 @@
         "dtype",
         "elif",
         "pgrcs"
-    ]
+    ],
+    "restructuredtext.confPath": "${workspaceFolder}"
 }
