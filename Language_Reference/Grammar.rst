@@ -138,12 +138,36 @@ Assignments assign values to variables.
    :lines: 75
    :linenos:
 
-| ``<`` returns true if the expression on the left is smaller than the expression on the right
-| ``>`` returns true if the expression on the left is greater than the expression on the right
-| ``<=``
-| ``>=``
+| ``<`` returns true if the expression on the left is smaller than the expression on the right.
+| ``>`` returns true if the expression on the left is greater than the expression on the right.
+| ``<=`` returns true if the expression on the left is smaller than or equal to the expression on the right.
+| ``>=`` returns true if the expression on the left is greater than or equal to the expression on the right.
 
 .. literalinclude:: ../Grammar/Penguor.abnf
    :language: abnf
    :lines: 77
+   :linenos:
+
+| ``+`` returns the sum of two expressions.
+| ``-`` subtracts the expression on the right from the expression on the left.
+
+.. literalinclude:: ../Grammar/Penguor.abnf
+   :language: abnf
+   :lines: 79
+   :linenos:
+
+| ``*`` multiplies two expressions.
+| ``/`` divides the expression on the left by the expression on the right.
+
+.. literalinclude:: ../Grammar/Penguor.abnf
+   :language: abnf
+   :lines: 81
+   :linenos:
+
+| ``!`` inverts boolean values.
+| ``-`` inverts numerical values.
+
+.. literalinclude:: ../Grammar/Penguor.abnf
+   :language: abnf
+   :lines: 83
    :linenos:

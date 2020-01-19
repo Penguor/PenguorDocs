@@ -22,16 +22,17 @@
    > Penguor Welcome.pgr
    Welcome
 
-Welcome to the documentation of Penguor, a data-oriented programming language. This site covers the Penguor language reference as well as the developer documentation of the different Penguor projects.
-
-Overview of the project:
+Welcome to the documentation of Penguor, a data-oriented programming language. 
+This site covers the Penguor language reference as well as the developer documentation of the different Penguor projects.
 
 .. toctree::
    :maxdepth: 2
-   :name: Table of Contents
+   :name: mastertoc
+   :includehidden:
    
    Overview/index
    Language_Reference/index
+   Developer_Documentation/index
 
 -------
  Links
