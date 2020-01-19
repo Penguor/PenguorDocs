@@ -31,7 +31,7 @@ Overview of the project:
    :name: Table of Contents
    
    Overview/index
-   Language Reference/index
+   Language_Reference/index
 
 -------
  Links
