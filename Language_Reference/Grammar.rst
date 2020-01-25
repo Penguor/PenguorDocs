@@ -171,3 +171,17 @@ Assignments assign values to variables.
    :language: abnf
    :lines: 83
    :linenos:
+
+Call expressions are used to get values or to execute functions.
+
+.. literalinclude:: ../Grammar/Penguor.abnf
+   :language: abnf
+   :lines: 85
+   :linenos:
+
+Numbers, strings and literals are base expressions.
+
+.. literalinclude:: ../Grammar/Penguor.abnf
+   :language: abnf
+   :lines: 87
+   :linenos:
