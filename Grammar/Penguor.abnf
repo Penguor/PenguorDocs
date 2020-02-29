@@ -2,19 +2,10 @@
 ; ----------------
 ;
 ; (c) Carl Schierig 2020
-; all rights reserved
 
 ; abnf grammar according to https://tools.ietf.org/html/rfc2234
 
-program = head declaration* EOF
-
-
-
-head   = "!#" 1*2( define ":" IDENTIFIER ) *( "from"? call "include" call ) "#!"
-
-define = "library"
-       / "safety"
-
+program = declaration* EOF
 
 
 declaration = sysDec
@@ -22,8 +13,8 @@ declaration = sysDec
             / dtypeDec
             / varDec
             / functionDec
+            / library
             / statement
-
 
 sysDec   = "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
 
@@ -32,14 +23,24 @@ compDec  = "component" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
 dtypeDec = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
 
 
+library = "library" IDENTIFIER blockStmt
 
-statement = blockStmt
+
+statement = preProcessorStmt
+          / blockStmt
           / ifStmt
           / whileStmt
           / forStmt
           / doStmt
           / switchStmt
           / expressionStmt
+
+
+preProcessorStmt = "#" ppDirective CRLF
+
+ppDirective = "include" IDENTIFIER
+             / "from" IDENTIFIER "include" IDENTIFIER
+             / "safety" ( 0 / 1 / 2 )
 
 
 blockStmt      = "{" *declaration "}"
