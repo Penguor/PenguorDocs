@@ -1,3 +1,4 @@
+; 
 ; Penguor Language
 ; ----------------
 ;
@@ -9,21 +10,25 @@ program = declaration* EOF
 
 
 declaration = sysDec
-            / compDec
+            / contDec
             / dtypeDec
             / varDec
             / functionDec
-            / library
+            / libDec
             / statement
 
 sysDec   = "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
 
-compDec  = "component" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+contDec  = "container" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
 
 dtypeDec = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
 
 
-library = "library" IDENTIFIER blockStmt
+varDec      = "var" IDENTIFIER IDENTIFIER [ "=" expression ] [";"] ; TODO: semicolon sometimes optional, e.g. params
+
+functionDec = "fn" IDENTIFIER IDENTIFIER "(" [ parameters ] ")" blockStmt
+
+libDec      = "library" IDENTIFIER blockStmt
 
 
 statement = preProcessorStmt
@@ -45,9 +50,9 @@ ppDirective = "include" IDENTIFIER
 
 blockStmt      = "{" *declaration "}"
 
-ifStmt         = "if" "(" expression ")" "{" 1*statement "}" *elif [ else "{" statement+ "}" ]
+ifStmt         = "if" "(" expression ")" "{" 1*statement "}" *elif [ else "{" 1*statement "}" ]
 
-elif           = "elif" "{" statement+ "}"
+elif           = "elif" "(" expression ")" "{" 1*statement "}"
 
 
 whileStmt      = "while" "(" expression ")" "{" 1*statement "}"
@@ -56,22 +61,22 @@ forStmt        = "for" "(" varDec ":" IDENTIFIER ")" "{" 1*statement "}"
 
 doStmt         = "do" "{" 1*statement "}" "while" "(" expression ")"
 
-switchStmt     = "switch" "(" IDENTIFIER ")" "{" 1*( caseStmt ) [ "default" ":" statement* ] "}"
+switchStmt     = "switch" "(" IDENTIFIER ")" "{" 1*( caseStmt ) [ "default" ":" 1*statement ] "}"
 
-caseStmt       = "case" "(" IDENTIFIER ")" ":" *statement
+caseStmt       = "case" "(" expression ")" ":" *statement
 
 expressionStmt = expression ";"
 
 
 
-expression      = assignment
+expression     = assignment
 
-assignment      = [ call "." ] IDENTIFIER "=" assignment
+assignment     = call "=" assignment
                 /  logicOr 
 
-logicOr       = logicAnd *( "||" logicAnd )
+logicOr        = logicAnd *( "||" logicAnd )
 
-logicAnd      = equality *( "&&" equality )
+logicAnd       = equality *( "&&" equality )
 
 equality       = relation *( ( "==" / "!=" ) relation )
 
@@ -83,18 +88,11 @@ multiplication = unary *( ( "*" / "/" ) unary )
 
 unary          = [ "!" / "-" ] unary / call / grouping
 
-call           = base *( "." IDENTIFIER / "(" [ arguments ] ")" )
+call           = IDENTIFIER *( "." IDENTIFIER ) [ "(" [ arguments ] ")" ] [ base ]
 
 base           = IDENTIFIER / NUM / STRING / "true" / "false" / "null"
 
 grouping       = "(" expression ")"
-
-
-
-varDec      =  var IDENTIFIER IDENTIFIER [ "=" expression ] ";"
-
-functionDec = "fn" IDENTIFIER IDENTIFIER "(" [ parameters ] ")" blockStmt
-
 
 
 parameters = varDec *( "," varDec )
