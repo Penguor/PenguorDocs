@@ -71,20 +71,20 @@ expressionStmt = expression ";"
 
 expression     = assignment
 
-assignment     = call "=" assignment
-                /  logicOr 
+assignment     = ( call "=" assignment ) 
+               / logicOr
 
-logicOr        = logicAnd *( "||" logicAnd )
+logicOr        = logicAnd [ "||" logicOr ]
 
-logicAnd       = equality *( "&&" equality )
+logicAnd       = equality [ "&&" logicAnd ]
 
-equality       = relation *( ( "==" / "!=" ) relation )
+equality       = relation [ ( "==" / "!=" ) equality ]
 
-relation       = addition *( ( "<" /  ">" / "<=" / ">=" ) addition )
+relation       = addition [ ( "<" /  ">" / "<=" / ">=" ) relation ]
 
-addition       = multiplication *( ( "+" / "-" ) multiplication )
+addition       = multiplication [ ( "+" / "-" ) addition ]
 
-multiplication = unary *( ( "*" / "/" ) unary )
+multiplication = unary [ ( "*" / "/" ) multiplication ]
 
 unary          = [ "!" / "-" ] unary / call / grouping
 
