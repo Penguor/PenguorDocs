@@ -87,7 +87,11 @@ multiplication = unary [ ( "*" / "/" ) multiplication ]
 
 unary          = [ "!" / "-" ] unary / call / grouping
 
-call           = IDENTIFIER *( "." IDENTIFIER ) [ "(" [ arguments ] ")" ] [ base ]
+call           = IDENTIFIER [ "." call ]
+               / callFunction [ "." call ]
+               [ base ]
+
+callFunction = IDENTIFIER "(" [ arguments ] ")"
 
 base           = IDENTIFIER / NUM / STRING / "true" / "false" / "null"
 
