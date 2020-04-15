@@ -24,7 +24,7 @@ contDec  = "container" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
 dtypeDec = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
 
 
-varDec      = "var" IDENTIFIER IDENTIFIER [ "=" expression ] [";"] ; TODO: semicolon sometimes optional, e.g. params
+varDec      = "var" IDENTIFIER IDENTIFIER [ "=" expression ] [";"] 
 
 functionDec = "fn" IDENTIFIER IDENTIFIER "(" [ parameters ] ")" blockStmt
 
@@ -71,8 +71,7 @@ expressionStmt = expression ";"
 
 expression     = assignment
 
-assignment     = ( call "=" assignment ) 
-               / logicOr
+assignment     = logicOr [ "=" logicOr ]
 
 logicOr        = logicAnd [ "||" logicOr ]
 
