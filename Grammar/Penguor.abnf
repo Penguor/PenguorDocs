@@ -57,13 +57,13 @@ elif           = "elif" "(" expression ")" "{" 1*statement "}"
 
 whileStmt      = "while" "(" expression ")" "{" 1*statement "}"
 
-forStmt        = "for" "(" varDec ":" IDENTIFIER ")" "{" 1*statement "}"
+forStmt        = "for" "(" IDENTIFIER ":" expression ")" "{" 1*statement "}"
 
-doStmt         = "do" "{" 1*statement "}" "while" "(" expression ")"
+doStmt         = "do" "{" 1*statement "}" "while" "(" expression ")" ";"
 
-switchStmt     = "switch" "(" IDENTIFIER ")" "{" 1*( caseStmt ) [ "default" ":" 1*statement ] "}"
+switchStmt     = "switch" "(" IDENTIFIER ")" "{" 1*( caseStmt ) [ "default" ":" "{" 1*statement "}" ] "}" ; improve grammar & parser to allow for
 
-caseStmt       = "case" "(" expression ")" ":" *statement
+caseStmt       = "case" expression ":" "{" *statement "}"
 
 expressionStmt = expression ";"
 
@@ -106,7 +106,7 @@ arguments  = expression *( "," expression )
 
 ; Regular grammar
 
-IDENTIFIER = ALPHA *( ALPHA / DIGIT ) 
+IDENTIFIER = ALPHA *( ALPHA / DIGIT ) ; TODO: check if alpha contains '_' character
 
 NUM = 1*DIGIT [ "." DIGIT+ ]
     / *DIGIT "." 1*DIGIT
