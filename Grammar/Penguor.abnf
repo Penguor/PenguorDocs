@@ -71,7 +71,7 @@ expressionStmt = expression ";"
 
 expression     = assignment
 
-assignment     = logicOr [ "=" logicOr ]
+assignment     = logicOr [ ( "=" / "+=" / "-=" / "*=" / "/=" ) logicOr ]
 
 logicOr        = logicAnd [ "||" logicOr ]
 
