@@ -71,7 +71,9 @@ expressionStmt = expression ";"
 
 expression     = assignment
 
-assignment     = logicOr [ ( "=" / "+=" / "-=" / "*=" / "/=" ) logicOr ]
+assignment     = logicXor [ ( "=" / "+=" / "-=" / "*=" / "/=" ) logicXor ]
+
+logicXor       = logicOr [ "^^" logicXor ]
 
 logicOr        = logicAnd [ "||" logicOr ]
 
@@ -85,7 +87,7 @@ addition       = multiplication [ ( "+" / "-" ) addition ]
 
 multiplication = unary [ ( "*" / "/" ) multiplication ]
 
-unary          = [ "!" / "-" ] unary / call / grouping
+unary          = [ "!" / "-" / "~" ] unary / call / grouping
 
 call           = IDENTIFIER [ "." call ]
                / callFunction [ "." call ]
