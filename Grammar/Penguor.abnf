@@ -55,10 +55,13 @@ expressionStmt = expression ";"
 
 expression     = assignment
 
-assignment     = logicXor [ ( "=" / "+=" / "-=" / "*=" / "/=" ) logicXor ]
-logicXor       = logicOr [ "^^" logicXor ]
-logicOr        = logicAnd [ "||" logicOr ]
-logicAnd       = equality [ "&&" logicAnd ]
+assignment     = logicOr [ ( "=" / "+=" / "-=" / "*=" / "/=" ) logicOr ]
+logicOr        = logicXor [ "||" logicOr ]
+logicXor       = logicAnd [ "^^" logicXor ]
+logicAnd       = bitwiseOr [ "&&" logicAnd ]
+bitwiseOr      = bitwiseXor [ "|" bitwiseOr ]
+bitwiseXor     = bitwiseAnd [ "^" bitwiseXor ]
+bitwiseAnd     = equality [ "&" bitwiseAnd ]
 equality       = relation [ ( "==" / "!=" ) equality ]
 relation       = addition [ ( "<" /  ">" / "<=" / ">=" ) relation ]
 addition       = multiplication [ ( "+" / "-" ) addition ]
