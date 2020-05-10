@@ -1,6 +1,13 @@
-# Data Types
+############
+ Data Types
+############
 
 Data types are the basic values of the language.
+
+.. toctree::
+    :includehidden:
+
+    Custom_Data_Types
 
 ## Data Type Groups
 
@@ -10,10 +17,14 @@ There are different groups for data types. The most common ones are `num` for nu
 
 Penguor defines some basic numeric and data types
 
-| Type | Size    | Group |
-| ---- | ------- | ----- |
-| byte | 1 byte  | num   |
-| int  | 4 bytes | num   |
++-------+---------+-------+
+| Type  |  Size   | Group |
++=======+=========+=======+
+| byte  | 1 byte  | num   |
+| short | 2 bytes | num   |
+| int   | 4 bytes | num   |
++-------+---------+-------+
+
 
 ## Custom Data Types
 

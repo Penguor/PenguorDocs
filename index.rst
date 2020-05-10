@@ -2,7 +2,7 @@
  Penguor
 *********
 
-.. code-block:: c
+.. code-block:: Penguor
 
     #safety 2
 
