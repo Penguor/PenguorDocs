@@ -85,7 +85,7 @@ nonAccessMod = "static" / "dynamic" / "abstract" / "const"
 
 ; Regular grammar
 
-IDENTIFIER = ALPHA *( ALPHA / DIGIT ) ; TODO: check if alpha contains '_' character
+IDENTIFIER = ( ALPHA / %x95 ) *( ALPHA / DIGIT / %x95 )
 
 NUM = 1*DIGIT [ "." DIGIT+ ]
     / *DIGIT "." 1*DIGIT
