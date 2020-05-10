@@ -3,11 +3,10 @@
 ; ----------------
 ;
 ; (c) Carl Schierig 2020
-
+;
 ; abnf grammar according to https://tools.ietf.org/html/rfc2234
 
 program = declaration* EOF
-
 
 declaration = sysDec
             / contDec
@@ -17,17 +16,11 @@ declaration = sysDec
             / libDec
             / statement
 
-sysDec   = "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-
-contDec  = "container" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-
-dtypeDec = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-
-
-varDec      = "var" IDENTIFIER IDENTIFIER [ "=" expression ] [";"] 
-
-functionDec = "fn" IDENTIFIER IDENTIFIER "(" [ parameters ] ")" blockStmt
-
+sysDec   = [ accessMod ] *nonAccessMod "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+contDec  = [ accessMod ] *nonAccessMod "container" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+dtypeDec = [ accessMod ] *nonAccessMod "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+varDec      = [ accessMod ] *nonAccessMod IDENTIFIER IDENTIFIER [ "=" expression ] [";"] 
+functionDec = [ accessMod ] *nonAccessMod IDENTIFIER IDENTIFIER "(" [ parameters ] ")" blockStmt
 libDec      = "library" IDENTIFIER blockStmt
 
 
@@ -40,29 +33,20 @@ statement = preProcessorStmt
           / switchStmt
           / expressionStmt
 
-
 preProcessorStmt = "#" ppDirective CRLF
-
 ppDirective = "include" IDENTIFIER
              / "from" IDENTIFIER "include" IDENTIFIER
              / "safety" ( 0 / 1 / 2 )
 
-
 blockStmt      = "{" *declaration "}"
 
 ifStmt         = "if" "(" expression ")" "{" 1*statement "}" *elif [ else "{" 1*statement "}" ]
-
 elif           = "elif" "(" expression ")" "{" 1*statement "}"
 
-
 whileStmt      = "while" "(" expression ")" "{" 1*statement "}"
-
 forStmt        = "for" "(" IDENTIFIER ":" expression ")" "{" 1*statement "}"
-
 doStmt         = "do" "{" 1*statement "}" "while" "(" expression ")" ";"
-
 switchStmt     = "switch" "(" IDENTIFIER ")" "{" 1*( caseStmt ) [ "default" ":" "{" 1*statement "}" ] "}" ; improve grammar & parser to allow for
-
 caseStmt       = "case" expression ":" "{" *statement "}"
 
 expressionStmt = expression ";"
@@ -72,23 +56,14 @@ expressionStmt = expression ";"
 expression     = assignment
 
 assignment     = logicXor [ ( "=" / "+=" / "-=" / "*=" / "/=" ) logicXor ]
-
 logicXor       = logicOr [ "^^" logicXor ]
-
 logicOr        = logicAnd [ "||" logicOr ]
-
 logicAnd       = equality [ "&&" logicAnd ]
-
 equality       = relation [ ( "==" / "!=" ) equality ]
-
 relation       = addition [ ( "<" /  ">" / "<=" / ">=" ) relation ]
-
 addition       = multiplication [ ( "+" / "-" ) addition ]
-
 multiplication = unary [ ( "*" / "/" ) multiplication ]
-
 unary          = [ "!" / "-" / "~" ] unary / call / grouping
-
 call           = IDENTIFIER [ "." call ]
                / callFunction [ "." call ]
                [ base ]
@@ -99,12 +74,11 @@ base           = IDENTIFIER / NUM / STRING / "true" / "false" / "null"
 
 grouping       = "(" expression ")"
 
-
 parameters = varDec *( "," varDec )
-
 arguments  = expression *( "," expression )
 
-
+accessMod = "public" / "private" / "protected" / "restricted"
+nonAccessMod = "static" / "dynamic" / "abstract" / "const"
 
 ; Regular grammar
 
