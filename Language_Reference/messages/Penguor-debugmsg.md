@@ -16,7 +16,7 @@ The Penguor language has its own debug message category, `PGR`. This file contai
 
 ## Error
 
-- `PGR-0001` An unexpected error ocurred.
-- `PGR-0005` Missing file header
+- `PGR-0001` An unexpected error occurred.
+- `PGR-0005` Source file '$arg0' not found.
 - `PGR-0006` Expecting "system", "component" or "datatype".
 - `PGR-0007` '$arg0' expected.
