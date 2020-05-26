@@ -8,21 +8,21 @@
 
 program = *declaration EOF
 
-declaration = usingDec
-            / sysDec
-            / contDec
-            / dtypeDec
-            / functionDec
-            / libDec
+declaration = usingDecl
+            / sysDecl
+            / contDecl
+            / dtypeDecl
+            / functionDecl
+            / libDecl
             / statement
 
-usingDec    = "using" call ";" 
-sysDec      = [ accessMod ] *nonAccessMod "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-contDec     = [ accessMod ] *nonAccessMod "container" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-dtypeDec    = [ accessMod ] *nonAccessMod "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-functionDec = [ accessMod ] *nonAccessMod IDENTIFIER IDENTIFIER "(" [ parameters ] ")" blockStmt
-libDec      = "library" IDENTIFIER blockStmt
-
+usingDecl    = "using" call ";" 
+sysDecl      = [ accessMod ] *nonAccessMod "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+contDecl     = [ accessMod ] *nonAccessMod "container" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+dtypeDecl    = [ accessMod ] *nonAccessMod "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+functionDecl = [ accessMod ] *nonAccessMod varExpr "(" [ parameters ] ")" blockStmt
+varDecl      = [ accessMod ] *nonAccessMod varExpr [ "=" logicOrExpr ] ";"
+libDecl      = [ accessMod ] *nonAccessMod "library" IDENTIFIER blockStmt
 
 statement = preProcessorStmt
           / blockStmt
@@ -72,11 +72,11 @@ call           = IDENTIFIER [ ( "." call ) / ( "++" / "--" ) ]
 callFunction = IDENTIFIER "(" [ arguments ] ")"
 
 keyword = "true" / "false" / "null"
-varExpr = [ accessMod ] *nonAccessMod call IDENTIFIER [ "=" logicOrExpr ]
+varExpr = call IDENTIFIER
 
 groupingExpr       = "(" expression ")"
 
-parameters = varDec *( "," varDec )
+parameters = varExpr *( "," varExpr )
 arguments  = expression *( "," expression )
 
 accessMod = "public" / "private" / "protected" / "restricted"
@@ -84,7 +84,7 @@ nonAccessMod = [ "static" / "dynamic" ] [ "abstract" / "const" ]
 
 ; Regular grammar
 
-IDENTIFIER = ( ALPHA / %x95 ) *( ALPHA / DIGIT / %x95 )
+IDENTIFIER = ( ALPHA / %x95 ) *( ALPHA / DIGIT / %x95 ) ; %x95 = '_'
 
 NUM = 1*DIGIT [ "." DIGIT+ ]
     / *DIGIT "." 1*DIGIT
