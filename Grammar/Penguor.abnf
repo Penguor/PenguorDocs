@@ -34,13 +34,13 @@ ppDirective = "safety" ( 0 / 1 / 2 )
 
 blockStmt      = "{" *declaration "}"
 
-ifStmt         = "if" "(" expression ")" "{" 1*statement "}" *elif [ "else" "{" 1*statement "}" ]
-elif           = "elif" "(" expression ")" "{" 1*statement "}"
+ifStmt         = "if" "(" expression ")" "{" *statement "}" *elif [ "else" "{" *statement "}" ]
+elif           = "elif" "(" expression ")" "{" *statement "}"
 
-whileStmt      = "while" "(" expression ")" "{" 1*statement "}"
-forStmt        = "for" "(" statement ":" expression ")" "{" 1*statement "}"
-doStmt         = "do" "{" 1*statement "}" "while" "(" expression ")" ";"
-switchStmt     = "switch" "(" expression ")" "{" 1*( caseStmt ) [ "default" ":" "{" 1*statement "}" ] "}" ; improve grammar & parser to allow for
+whileStmt      = "while" "(" expression ")" "{" *statement "}"
+forStmt        = "for" "(" varExpr ":" call ")" "{" *statement "}"
+doStmt         = "do" "{" *statement "}" "while" "(" expression ")" ";"
+switchStmt     = "switch" "(" call ")" "{" 1*( caseStmt ) [ "default" ":" "{" 1*statement "}" ] "}" ; improve grammar & parser to allow for
 caseStmt       = "case" expression ":" "{" *statement "}"
 
 expressionStmt = expression ";"
