@@ -8,21 +8,17 @@
 
 program = *declaration EOF
 
-declaration = usingDecl
-            / sysDecl
-            / contDecl
-            / dtypeDecl
-            / functionDecl
-            / libDecl
+declaration = ( [ accessMod ] *nonAccessMod ( sysDecl / contDecl / dtypeDecl / functionDecl / varDecl / libDecl ) )
+            / usingDecl
             / statement
 
 usingDecl    = "using" call ";" 
-sysDecl      = [ accessMod ] *nonAccessMod "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-contDecl     = [ accessMod ] *nonAccessMod "container" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-dtypeDecl    = [ accessMod ] *nonAccessMod "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-functionDecl = [ accessMod ] *nonAccessMod varExpr "(" [ parameters ] ")" blockStmt
-varDecl      = [ accessMod ] *nonAccessMod varExpr [ "=" logicOrExpr ] ";"
-libDecl      = [ accessMod ] *nonAccessMod "library" IDENTIFIER blockStmt
+sysDecl      = "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+contDecl     = "container" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+dtypeDecl    = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
+functionDecl = varExpr "(" [ parameters ] ")" blockStmt
+varDecl      = varExpr [ "=" conditionalOrExpr ] ";"
+libDecl      = "library" call blockStmt
 
 statement = preProcessorStmt
           / blockStmt
@@ -52,10 +48,10 @@ expressionStmt = expression ";"
 
 expression     = assignmentExpr
 
-assignmentExpr     = logicOrExpr [ ( "=" / "+=" / "-=" / "*=" / "/=" / "%=" / "<<=" / ">>=" / "&=" / "|=" / "^=" ) logicOrExpr ]
-logicOrExpr        = logicXorExpr [ "||" logicOrExpr ]
-logicXorExpr       = logicAndExpr [ "^^" logicXorExpr ]
-logicAndExpr       = bitwiseOrExpr [ "&&" logicAndExpr ]
+assignmentExpr     = conditionalOrExpr [ ( "=" / "+=" / "-=" / "*=" / "/=" / "%=" / "<<=" / ">>=" / "&=" / "|=" / "^=" ) conditionalOrExpr ]
+conditionalOrExpr  = conditionalXorExpr [ "||" conditionalOrExpr ]
+conditionalXorExpr = conditionalAndExpr [ "^^" conditionalXorExpr ]
+conditionalAndExpr = bitwiseOrExpr [ "&&" conditionalAndExpr ]
 bitwiseOrExpr      = bitwiseXorExpr [ "|" bitwiseOrExpr ]
 bitwiseXorExpr     = bitwiseAndExpr [ "^" bitwiseXorExpr ]
 bitwiseAndExpr     = equalityExpr [ "&" bitwiseAndExpr ]
@@ -64,7 +60,7 @@ relationExpr       = bitshiftExpr [ ( "<" /  ">" / "<=" / ">=" ) relationExpr ]
 bitshiftExpr       = additionExpr [ ( "<<" / ">>" ) bitshiftExpr ]
 additionExpr       = multiplicationExpr [ ( "+" / "-" ) additionExpr ]
 multiplicationExpr = unaryExpr [ ( "*" / "/" / "%" ) multiplicationExpr ]
-unaryExpr          = [ "!" / "-" / "~" / "++" / "--" ] unaryExpr / base / groupingExpr
+unaryExpr          = [ "!" / "+" / "-" / "~" / "++" / "--" ] base / groupingExpr
 base           = keyword / varExpr / call / IDENTIFIER / NUM / STRING
 
 call           = IDENTIFIER [ ( "." call ) / ( "++" / "--" ) ]
@@ -80,7 +76,7 @@ parameters = varExpr *( "," varExpr )
 arguments  = expression *( "," expression )
 
 accessMod = "public" / "private" / "protected" / "restricted"
-nonAccessMod = [ "static" / "dynamic" ] [ "abstract" / "const" ]
+nonAccessMod = [ "static" / "dynamic" ] [ "abstract" ] [ "const" ]
 
 ; Regular grammar
 
