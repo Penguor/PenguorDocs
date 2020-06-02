@@ -61,7 +61,7 @@ bitshiftExpr       = additionExpr [ ( "<<" / ">>" ) bitshiftExpr ]
 additionExpr       = multiplicationExpr [ ( "+" / "-" ) additionExpr ]
 multiplicationExpr = unaryExpr [ ( "*" / "/" / "%" ) multiplicationExpr ]
 unaryExpr          = [ "!" / "+" / "-" / "~" / "++" / "--" ] base / groupingExpr
-base           = keyword / varExpr / call / IDENTIFIER / NUM / STRING
+base           = keyword / NUM / STRING / call
 
 call           = IDENTIFIER [ ( "." call ) / ( "++" / "--" ) ]
                / callFunction [ "." call ]
