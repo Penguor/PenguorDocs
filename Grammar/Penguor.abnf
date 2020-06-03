@@ -43,6 +43,7 @@ doStmt         = "do" "{" *statement "}" "while" "(" expression ")" ";"
 switchStmt     = "switch" "(" call ")" "{" 1*( caseStmt ) [ "default" ":" "{" 1*statement "}" ] "}" ; improve grammar & parser to allow for
 caseStmt       = "case" expression ":" "{" *statement "}"
 
+returnStmt     = "return" [ expression ] ";"
 expressionStmt = expression ";"
 
 
