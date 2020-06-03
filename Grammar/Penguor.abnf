@@ -13,12 +13,13 @@ declaration = ( [ accessMod ] *nonAccessMod ( sysDecl / contDecl / dtypeDecl / f
             / statement
 
 usingDecl    = "using" call ";" 
-sysDecl      = "system" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-contDecl     = "container" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-dtypeDecl    = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockStmt
-functionDecl = varExpr "(" [ parameters ] ")" blockStmt
+sysDecl      = "system" IDENTIFIER [ "<" IDENTIFIER ] blockDecl
+contDecl     = "container" IDENTIFIER [ "<" IDENTIFIER ] blockDecl
+dtypeDecl    = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockDecl
+functionDecl = varExpr "(" [ parameters ] ")" blockDecl
 varDecl      = varExpr [ "=" conditionalOrExpr ] ";"
-libDecl      = "library" call blockStmt
+libDecl      = "library" call blockDecl
+blockDecl    = "{" *declaration "}"
 
 statement = preProcessorStmt
           / blockStmt
@@ -32,16 +33,16 @@ statement = preProcessorStmt
 preProcessorStmt = "#" ppDirective NEWLINE
 ppDirective = "safety" ( 0 / 1 / 2 )
 
-blockStmt      = "{" *declaration "}"
+blockStmt      = "{" *statement "}"
 
-ifStmt         = "if" "(" expression ")" "{" *statement "}" *elif [ "else" "{" *statement "}" ]
-elif           = "elif" "(" expression ")" "{" *statement "}"
+ifStmt         = "if" "(" expression ")" statement *elif [ "else" statement ]
+elif           = "elif" "(" expression ")" statement
 
-whileStmt      = "while" "(" expression ")" "{" *statement "}"
-forStmt        = "for" "(" varExpr ":" call ")" "{" *statement "}"
-doStmt         = "do" "{" *statement "}" "while" "(" expression ")" ";"
-switchStmt     = "switch" "(" call ")" "{" 1*( caseStmt ) [ "default" ":" "{" 1*statement "}" ] "}" ; improve grammar & parser to allow for
-caseStmt       = "case" expression ":" "{" *statement "}"
+whileStmt      = "while" "(" expression ")" statement 
+forStmt        = "for" "(" varExpr ":" call ")" statement
+doStmt         = "do" statement "while" "(" expression ")" ";"
+switchStmt     = "switch" "(" call ")" "{" 1*( caseStmt ) [ "default" ":" statement ] "}"
+caseStmt       = "case" expression ":" statement
 
 returnStmt     = "return" [ expression ] ";"
 
