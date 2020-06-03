@@ -2,7 +2,7 @@
 ; Penguor Language
 ; ----------------
 ;
-; (c) Carl Schierig 2020
+; (c) Carl Schierig 2019-2020
 ;
 ; abnf grammar according to https://tools.ietf.org/html/rfc2234
 
@@ -44,6 +44,7 @@ switchStmt     = "switch" "(" call ")" "{" 1*( caseStmt ) [ "default" ":" "{" 1*
 caseStmt       = "case" expression ":" "{" *statement "}"
 
 returnStmt     = "return" [ expression ] ";"
+
 expressionStmt = expression ";"
 
 
@@ -64,7 +65,7 @@ multiplicationExpr = unaryExpr [ ( "*" / "/" / "%" ) multiplicationExpr ]
 unaryExpr          = [ "!" / "+" / "-" / "~" / "++" / "--" ] base / groupingExpr
 base           = keyword / NUM / STRING / call
 
-call           = IDENTIFIER [ ( "." call ) / ( "++" / "--" ) ]
+call           = IDENTIFIER [ ( "." call ) / ( "++" / "--" ) / ( "[" "]" ) ]
                / callFunction [ "." call ]
 callFunction = IDENTIFIER "(" [ arguments ] ")"
 
