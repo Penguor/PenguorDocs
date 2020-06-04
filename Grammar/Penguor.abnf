@@ -21,7 +21,7 @@ varDecl      = varExpr [ "=" conditionalOrExpr ] ";"
 libDecl      = "library" call blockDecl
 blockDecl    = "{" *declaration "}"
 
-statement = preProcessorStmt
+statement = compilerStmt
           / blockStmt
           / ifStmt
           / whileStmt
@@ -30,8 +30,8 @@ statement = preProcessorStmt
           / switchStmt
           / expressionStmt
 
-preProcessorStmt = "#" ppDirective NEWLINE
-ppDirective = "safety" ( 0 / 1 / 2 )
+compilerStmt = "#" compilerDirective ";"
+compilerDirective = "safety" ( 0 / 1 / 2 )
 
 blockStmt      = "{" *statement "}"
 
