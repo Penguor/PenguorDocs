@@ -1,4 +1,4 @@
-; 
+;
 ; Penguor Language
 ; ----------------
 ;
@@ -12,12 +12,12 @@ declaration = ( [ accessMod ] *nonAccessMod ( sysDecl / contDecl / dtypeDecl / f
             / usingDecl
             / statement
 
-usingDecl    = "using" call ";" 
+usingDecl    = "using" call ENDING
 sysDecl      = "system" IDENTIFIER [ "<" IDENTIFIER ] blockDecl
 contDecl     = "container" IDENTIFIER [ "<" IDENTIFIER ] blockDecl
 dtypeDecl    = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockDecl
 functionDecl = varExpr "(" [ parameters ] ")" blockDecl
-varDecl      = varExpr [ "=" conditionalOrExpr ] ";"
+varDecl      = varExpr [ "=" conditionalOrExpr ] ENDING
 libDecl      = "library" call blockDecl
 blockDecl    = "{" *declaration "}"
 
@@ -30,7 +30,7 @@ statement = compilerStmt
           / switchStmt
           / expressionStmt
 
-compilerStmt = "#" compilerDirective ";"
+compilerStmt = "#" compilerDirective ENDING
 compilerDirective = "safety" ( 0 / 1 / 2 )
 
 blockStmt      = "{" *statement "}"
@@ -44,9 +44,9 @@ doStmt         = "do" statement "while" "(" expression ")" ";"
 switchStmt     = "switch" "(" call ")" "{" 1*( caseStmt ) [ "default" ":" statement ] "}"
 caseStmt       = "case" expression ":" statement
 
-returnStmt     = "return" [ expression ] ";"
+returnStmt     = "return" [ expression ] ENDING
 
-expressionStmt = expression ";"
+expressionStmt = expression ENDING
 
 
 expression     = assignmentExpr
@@ -90,4 +90,5 @@ NUM = 1*DIGIT [ "." DIGIT+ ]
 
 STRING = DQUOTE *(CHAR) DQUOTE
 
+ENDING = ";" / NEWLINE
 NEWLINE = LF / CRLF
