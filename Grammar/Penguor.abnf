@@ -8,21 +8,28 @@
 
 program = *declaration EOF
 
-declaration = ( [ accessMod ] *nonAccessMod ( sysDecl / contDecl / dtypeDecl / functionDecl / varDecl / libDecl ) )
+declaration = ( [ accessMod ] *nonAccessMod ( sysDecl / dataDecl / typeDecl / functionDecl / varDecl / libDecl ) )
             / usingDecl
-            / statement
+            / compilerStmt
 
 usingDecl    = "using" call ENDING
-sysDecl      = "system" IDENTIFIER [ "<" IDENTIFIER ] blockDecl
-contDecl     = "container" IDENTIFIER [ "<" IDENTIFIER ] blockDecl
-dtypeDecl    = "datatype" IDENTIFIER [ "<" IDENTIFIER ] blockDecl
-functionDecl = varExpr "(" [ parameters ] ")" blockDecl
+sysDecl      = "system" IDENTIFIER [ "<" call ] blockDecl
+dataDecl     = "data" IDENTIFIER [ "<" call ] blockDecl
+typeDecl     = "type" IDENTIFIER [ "<" call ] blockDecl
+functionDecl = varExpr "(" [ parameters ] ")" declContent
 varDecl      = varExpr [ "=" conditionalOrExpr ] ENDING
-libDecl      = "library" call blockDecl
-blockDecl    = "{" *declaration "}"
+libDecl      = "library" IDENTIFIER *( "." IDENTIFIER ) blockDecl
+
+; stmtblockDecl and blockDecl are both represented by a BlockDecl in PenguorCS, 
+; with the difference that one allows DeclStmts
+stmtblockDecl = "{" *( declaration / statement ) "}"
+blockDecl     = "{" *declaration "}"
+declContent   = stmtblockDecl
+              / ":" statement
 
 statement = compilerStmt
           / blockStmt
+          / varStmt
           / ifStmt
           / whileStmt
           / forStmt
@@ -34,6 +41,11 @@ compilerStmt = "#" compilerDirective ENDING
 compilerDirective = "safety" ( 0 / 1 / 2 )
 
 blockStmt      = "{" *statement "}"
+
+; the difference between a varStmt and a varDecl
+; is that the varDecl is only called from declaration otherwise
+; the varStmt may not have any access modifiers
+varStmt        = varDecl
 
 ifStmt         = "if" "(" expression ")" statement *elif [ "else" statement ]
 elif           = "elif" "(" expression ")" statement

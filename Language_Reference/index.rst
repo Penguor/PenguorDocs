@@ -4,7 +4,8 @@
 
 This section contains the language reference of Penguor.
 
-.. contents::
+.. toctree::
+   :includehidden:
 
    Data_Types/index
    Grammar
