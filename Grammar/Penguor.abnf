@@ -4,21 +4,21 @@
 ;
 ; (c) Carl Schierig 2019-2020
 ;
-; abnf grammar according to https://tools.ietf.org/html/rfc2234
+; abnf grammar according to https://tools.ietf.org/html/rfc5234
+; and https://tools.ietf.org/html/rfc7405
 
 program = *declaration EOF
 
-declaration = ( [ accessMod ] *nonAccessMod ( sysDecl / dataDecl / typeDecl / functionDecl / varDecl / libDecl ) )
-            / usingDecl
-            / compilerStmt
+declaration  = ( [ accessMod ] *nonAccessMod ( sysDecl / dataDecl / typeDecl / functionDecl / varDecl / libDecl ) )
+declaration /= usingDecl / compilerStmt
 
-usingDecl    = "using" call ENDING
-sysDecl      = "system" IDENTIFIER [ "<" call ] blockDecl
-dataDecl     = "data" IDENTIFIER [ "<" call ] blockDecl
-typeDecl     = "type" IDENTIFIER [ "<" call ] blockDecl
+usingDecl    = %s"using" call ENDING
+sysDecl      = %s"system" IDENTIFIER [ "<" call ] blockDecl
+dataDecl     = %s"data" IDENTIFIER [ "<" call ] blockDecl
+typeDecl     = %s"type" IDENTIFIER [ "<" call ] blockDecl
 functionDecl = varExpr "(" [ parameters ] ")" declContent
 varDecl      = varExpr [ "=" conditionalOrExpr ] ENDING
-libDecl      = "library" IDENTIFIER *( "." IDENTIFIER ) blockDecl
+libDecl      = %s"library" IDENTIFIER *( "." IDENTIFIER ) blockDecl
 
 ; stmtblockDecl and blockDecl are both represented by a BlockDecl in PenguorCS, 
 ; with the difference that one allows DeclStmts
@@ -38,7 +38,7 @@ statement = compilerStmt
           / expressionStmt
 
 compilerStmt = "#" compilerDirective ENDING
-compilerDirective = "safety" ( 0 / 1 / 2 )
+compilerDirective = %s"safety" ( 0 / 1 / 2 )
 
 blockStmt      = "{" *statement "}"
 
@@ -47,16 +47,16 @@ blockStmt      = "{" *statement "}"
 ; the varStmt may not have any access modifiers
 varStmt        = varDecl
 
-ifStmt         = "if" "(" expression ")" statement *elif [ "else" statement ]
-elif           = "elif" "(" expression ")" statement
+ifStmt         = %s"if" "(" expression ")" statement *elif [ %s"else" statement ]
+elif           = %s"elif" "(" expression ")" statement
 
-whileStmt      = "while" "(" expression ")" statement 
-forStmt        = "for" "(" varExpr ":" call ")" statement
-doStmt         = "do" statement "while" "(" expression ")" ";"
-switchStmt     = "switch" "(" call ")" "{" 1*( caseStmt ) [ "default" ":" statement ] "}"
-caseStmt       = "case" expression ":" statement
+whileStmt      = %s"while" "(" expression ")" statement 
+forStmt        = %s"for" "(" varExpr ":" call ")" statement
+doStmt         = %s"do" statement %s"while" "(" expression ")" ";"
+switchStmt     = %s"switch" "(" call ")" "{" 1*( caseStmt ) [ %s"default" ":" statement ] "}"
+caseStmt       = %s"case" expression ":" statement
 
-returnStmt     = "return" [ expression ] ENDING
+returnStmt     = %s"return" [ expression ] ENDING
 
 expressionStmt = expression ENDING
 
@@ -82,7 +82,7 @@ call           = IDENTIFIER [ ( "." call ) / ( "++" / "--" ) / ( "[" "]" ) ]
                / callFunction [ "." call ]
 callFunction = IDENTIFIER "(" [ arguments ] ")"
 
-keyword = "true" / "false" / "null"
+keyword = %s"true" / %s"false" / %s"null"
 varExpr = call IDENTIFIER
 
 groupingExpr       = "(" expression ")"
@@ -90,8 +90,8 @@ groupingExpr       = "(" expression ")"
 parameters = varExpr *( "," varExpr )
 arguments  = expression *( "," expression )
 
-accessMod = "public" / "private" / "protected" / "restricted"
-nonAccessMod = [ "static" / "dynamic" ] [ "abstract" ] [ "const" ]
+accessMod = %s"public" / %s"private" / %s"protected" / %s"restricted"
+nonAccessMod = [ %s"static" / %s"dynamic" ] [ %s"abstract" ] [ %s"const" ]
 
 ; Regular grammar
 
