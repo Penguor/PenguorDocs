@@ -1,8 +1,14 @@
 root = true
 
+[*.*]
+end_of_line = lf
+
 [*.md]
 insert_final_newline = true
 
 [*.rst]
 indent_style = space
 indent_size = 4
+
+[*.abnf]
+end_of_line = crlf
