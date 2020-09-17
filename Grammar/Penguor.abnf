@@ -38,7 +38,7 @@ statement = compilerStmt
           / expressionStmt
 
 compilerStmt = "#" compilerDirective ENDING
-compilerDirective = %s"safety" ( 0 / 1 / 2 )
+compilerDirective = %s"safety" ( "0" / "1" / "2" )
 
 blockStmt      = "{" *statement "}"
 
