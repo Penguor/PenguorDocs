@@ -64,8 +64,7 @@ expressionStmt = expression ENDING
 expression     = assignmentExpr
 
 assignmentExpr     = conditionalOrExpr [ ( "=" / "+=" / "-=" / "*=" / "/=" / "%=" / "<<=" / ">>=" / "&=" / "|=" / "^=" ) conditionalOrExpr ]
-conditionalOrExpr  = conditionalXorExpr [ "||" conditionalOrExpr ]
-conditionalXorExpr = conditionalAndExpr [ "^^" conditionalXorExpr ]
+conditionalOrExpr  = conditionalAndExpr [ "||" conditionalOrExpr ]
 conditionalAndExpr = bitwiseOrExpr [ "&&" conditionalAndExpr ]
 bitwiseOrExpr      = bitwiseXorExpr [ "|" bitwiseOrExpr ]
 bitwiseXorExpr     = bitwiseAndExpr [ "^" bitwiseXorExpr ]
