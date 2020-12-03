@@ -21,7 +21,7 @@ varDecl      = varExpr [ "=" conditionalOrExpr ] ENDING
 libDecl      = %s"library" IDENTIFIER *( "." IDENTIFIER ) blockDecl
 
 ; stmtblockDecl and blockDecl are both represented by a BlockDecl in PenguorCS, 
-; with the difference that one allows DeclStmts
+; with the difference that one allows StmtDecls
 stmtblockDecl = "{" *( declaration / statement ) "}"
 blockDecl     = "{" *declaration "}"
 declContent   = stmtblockDecl
@@ -56,6 +56,8 @@ doStmt         = %s"do" statement %s"while" "(" expression ")" ";"
 switchStmt     = %s"switch" "(" call ")" "{" 1*( caseStmt ) [ %s"default" ":" statement ] "}"
 caseStmt       = %s"case" expression ":" statement
 
+assemblyStmt   = %s"asm" "(" arguments ")" "{" 'assembly code' "}" ; contains (NASM) assembly, platform specific and intended for standard library
+
 returnStmt     = %s"return" [ expression ] ENDING
 
 expressionStmt = expression ENDING
@@ -63,7 +65,7 @@ expressionStmt = expression ENDING
 
 expression     = assignmentExpr
 
-assignmentExpr     = conditionalOrExpr [ ( "=" / "+=" / "-=" / "*=" / "/=" / "%=" / "<<=" / ">>=" / "&=" / "|=" / "^=" ) conditionalOrExpr ]
+assignmentExpr     = conditionalOrExpr / call ( "=" / "+=" / "-=" / "*=" / "/=" / "%=" / "<<=" / ">>=" / "&=" / "|=" / "^=" ) conditionalOrExpr
 conditionalOrExpr  = conditionalAndExpr [ "||" conditionalOrExpr ]
 conditionalAndExpr = bitwiseOrExpr [ "&&" conditionalAndExpr ]
 bitwiseOrExpr      = bitwiseXorExpr [ "|" bitwiseOrExpr ]
