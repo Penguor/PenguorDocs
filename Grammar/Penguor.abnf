@@ -98,8 +98,8 @@ nonAccessMod = [ %s"static" / %s"dynamic" ] [ %s"abstract" ] [ %s"const" ]
 
 IDENTIFIER = ( ALPHA / %x95 ) *( ALPHA / DIGIT / %x95 ) ; %x95 = '_'
 
-NUM = 1*DIGIT [ "." DIGIT+ ]
-    / *DIGIT "." 1*DIGIT
+;       any base      or  base    2  ,  8  ,  16 or 10      number, may be rational, base 10 is default
+NUM = [ ( +DIGIT "x" ) / ( "0" ( "b" / "o" / "h" / "d" )) ] *DIGIT [ "." + DIGIT ]
 
 STRING = DQUOTE *(CHAR) DQUOTE
 
