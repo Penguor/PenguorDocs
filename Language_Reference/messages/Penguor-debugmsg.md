@@ -28,3 +28,4 @@ The Penguor language has its own debug message category, `PGR`. This file contai
 - `PGR-0013` {0}s must not have modifiers
 - `PGR-0014` Values cannot be assigned to {0}s, expecting a call
 - `PGR-0015` Only assign expressions and call expressions may be statements
+- `PGR-0016` Unknown escape sequence '{0}'
