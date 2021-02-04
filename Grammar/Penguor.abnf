@@ -56,7 +56,7 @@ doStmt         = %s"do" statement %s"while" "(" expression ")" ";"
 switchStmt     = %s"switch" "(" call ")" "{" 1*( caseStmt ) [ %s"default" ":" statement ] "}"
 caseStmt       = %s"case" expression ":" statement
 
-assemblyStmt   = %s"asm" "(" arguments ")" "{" 'assembly code' "}" ; contains (NASM) assembly, platform specific and intended for standard library
+assemblyStmt   = %s"asm" "(" arguments ")" DQUOTE 'assembly code' DQUOTE ; contains (NASM) assembly, platform specific and intended for standard library, assembly code is a string
 
 returnStmt     = %s"return" [ expression ] ENDING
 
