@@ -47,8 +47,7 @@ blockStmt      = "{" *statement "}"
 ; the varStmt may not have any access modifiers
 varStmt        = varDecl
 
-ifStmt         = %s"if" "(" expression ")" statement *elif [ %s"else" statement ]
-elif           = %s"elif" "(" expression ")" statement
+ifStmt         = %s"if" "(" expression ")" statement [ %s"else" statement ]
 
 whileStmt      = %s"while" "(" expression ")" statement 
 forStmt        = %s"for" "(" varExpr ":" call ")" statement
