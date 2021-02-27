@@ -13,6 +13,7 @@ The Penguor language has its own debug message category, `PGR`. This file contai
 ## Warn
 
 - `PGR-0002` Warning
+- `PGR-0018` Consider wrapping the contents of this {0} in braces
 
 ## Error
 
@@ -29,3 +30,4 @@ The Penguor language has its own debug message category, `PGR`. This file contai
 - `PGR-0014` Values cannot be assigned to {0}s, expecting a call
 - `PGR-0015` Only assign expressions and call expressions may be statements
 - `PGR-0016` Unknown escape sequence '{0}'
+- `PGR-0017` The contents of {0}s containing more than one statement have to be surrounded by braces
