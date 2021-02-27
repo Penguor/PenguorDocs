@@ -1,9 +1,0 @@
-;
-; Penguor Intermediate Representation
-; -----------------------------------
-;
-; (c) Carl Schierig 2019-2020
-;
-; abnf grammar according to https://tools.ietf.org/html/rfc5234
-; and https://tools.ietf.org/html/rfc7405
-
