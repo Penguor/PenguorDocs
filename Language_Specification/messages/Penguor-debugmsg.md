@@ -31,3 +31,6 @@ The Penguor language has its own debug message category, `PGR`. This file contai
 - `PGR-0015` Only assign expressions and call expressions may be statements
 - `PGR-0016` Unknown escape sequence '{0}'
 - `PGR-0017` The contents of {0}s containing more than one statement have to be surrounded by braces
+- `PGR-0019` {0} is not accessible from {1}
+- `PGR-0020` The symbol '{0}' does not exist in the current scope
+- `PGR-0021` Could not find library '{0}'
