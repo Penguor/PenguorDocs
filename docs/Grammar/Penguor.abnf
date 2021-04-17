@@ -78,7 +78,7 @@ multiplicationExpr = unaryExpr [ ( "*" / "/" / "%" ) multiplicationExpr ]
 unaryExpr          = [ "!" / "+" / "-" / "~" / "++" / "--" ] base / groupingExpr
 base           = keyword / NUM / STRING / call
 
-call           = IDENTIFIER [ ( "." call ) / ( "++" / "--" ) / ( "[" "]" ) ]
+call           = IDENTIFIER [ "[" expression "]" ] [ ( "." call ) / ( "++" / "--" ) / ( "[" "]" ) ]
                / callFunction [ "." call ]
 callFunction = IDENTIFIER "(" [ arguments ] ")"
 

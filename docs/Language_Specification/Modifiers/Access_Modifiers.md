@@ -38,9 +38,9 @@ dynamic system Enemy
 The `public` modifiers make the float variables accessible from everywhere outside the container. The same applies to the constructor.
 the `public` before the container makes it visible outside the assembly, it's not restricted to it any more.
 
-> **Note:**
-> Even though public types are a simple way of sharing data and structures,
-> they shouldn't be overused in object-oriented programs as the code isn't encapsulated at all.
+!!! note
+    Even though public types are a simple way of sharing data and structures,
+    they shouldn't be overused in object-oriented programs as the code isn't encapsulated at all.
 
 ## Restricted
 

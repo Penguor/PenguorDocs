@@ -25,6 +25,6 @@ This site covers the Penguor language reference as well as the developer documen
 
 ## Links
 
-* Documentation source: <https://github.com/Penguor/PenguorDocs>
-* PenguorCS compiler: <https://github.com/Penguor/PenguorCS>
-* Issue tracker: <https://github.com/Penguor/PenguorCS/issues>
+- Documentation source: <https://github.com/Penguor/PenguorDocs>
+- PenguorCS compiler: <https://github.com/Penguor/PenguorCS>
+- Issue tracker: <https://github.com/Penguor/PenguorCS/issues>
