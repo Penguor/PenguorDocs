@@ -38,7 +38,7 @@ Each data type definition starts with `type`. This tells the compiler that the f
 The next part is the `name`. It describes exactly what it is called.
 
 `group` in the square brackets defines the group of the data type. Each data type belongs to a group, which describes the content.
-E.g. a data type int[num] can only contain numbers. More on this can be found in [groups](../Groups.md#Data_Types)
+E.g. a data type int[num] can only contain numbers. More on this can be found in [groups](./Groups.md#Data_Types)
 
 The reserved size in memory for the data type is set through `size:number` where `number` is the reserved space in memory in bits.
 

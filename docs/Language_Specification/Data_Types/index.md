@@ -7,22 +7,55 @@ Data types are the basic values of the language.
 Data type groups or static data types are a bit like interfaces or type classes in other languages.
 There are different groups for data types. The most common ones are `num` for numeric data types and `char` for data types containing characters.
 
-## Predefined Data Types
+## Built-In Data Types
 
-Penguor defines some basic numeric and data types. These are handled by the compiler, but nonetheless they must be defined in the standard library.
+Penguor includes some basic data types. These are handled by the compiler, but nonetheless they must be defined in the standard library.
 
-| Type   | Size    | Group |
-| ------ | ------- | ----- |
-| byte   | 1 byte  | num   |
-| short  | 2 bytes | num   |
-| int    | 4 bytes | num   |
-| long   | 8 bytes | num   |
-| float  | 4 bytes | num   |
-| double | 8 bytes | num   |
-| char   | 1 byte  | char  |
-| string | 0-?     | char  |
-| bool   | 1 byte  | -     |
-| void   | -       | -     |
+### Signed Integers
+
+With the exception of `i8`, signed integers
+
+| Type | Also known as | Size    | Group |
+| ---- | ------------- | ------- | ----- |
+| i8   | sbyte         | 1 byte  | num   |
+| i16  | short         | 2 bytes | num   |
+| i32  | int           | 4 bytes | num   |
+| i64  | long          | 8 bytes | num   |
+
+### Unsigned Integers
+
+| Type | Also known as | Size    | Group |
+| ---- | ------------- | ------- | ----- |
+| u8   | byte          | 1 byte  | num   |
+| u16  | ushort        | 2 bytes | num   |
+| u32  | uint          | 4 bytes | num   |
+| u64  | ulong         | 8 bytes | num   |
+
+### Floating-Point Numbers
+
+| Type | Also known as | Size    | Group |
+| ---- | ------------- | ------- | ----- |
+| f32  | float         | 4 bytes | num   |
+| f64  | double        | 8 bytes | num   |
+
+### Character-Containers
+
+| Type | Also known as | Size    | Group |
+| ---- | ------------- | ------- | ----- |
+| char | char          | 1 byte  | char  |
+| str  | string        | 0-?     | char  |
+
+### Bool
+
+| Type | Also known as | Size    | Group |
+| ---- | ------------- | ------- | ----- |
+| bool | boolean       | 1 byte  | -     |
+
+### Void
+
+| Type | Also known as | Size    | Group |
+| ---- | ------------- | ------- | ----- |
+| void | -             | -       | -     |
 
 ## Custom Data Types
 

@@ -8,6 +8,7 @@ theme:
   features:
     - navigation.instant
     - navigation.top
+    - navigation.tabs
   
   palette:
 
@@ -57,3 +58,25 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/Penguor
       name: Penguor on GitHub
+
+nav:
+  - Penguor: 
+    - 'index.md'
+    - 'Penguor/What_is_Penguor.md'
+    - 'Penguor/FAQ.md'
+  - Language Specification:
+    - Language_Specification/index.md
+    - Data Types:
+      - Language_Specification/Data_Types/index.md
+      - Language_Specification/Data_Types/Custom_Data_Types.md
+      - Language_Specification/Data_Types/Groups.md
+    - Messages:
+      - Language_Specification/Messages/Penguor-debugmsg.md
+      - Language_Specification/Messages/PenguorCS-debugmsg.md
+    - Access Modifiers:
+      - Language_Specification/Modifiers/Access_Modifiers.md
+      - Language_Specification/Modifiers/Non_Access_Modifiers.md
+  - Developer Documentation:
+    - 'Developer_Documentation/index.md'
+    - Developer_Documentation/Design_Considerations.md
+  
