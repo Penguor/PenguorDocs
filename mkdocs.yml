@@ -1,6 +1,59 @@
 site_name: Penguor Documentation
 theme:
   name: material
+  font: 
+    code:
+      Fira Code
+
+  features:
+    - navigation.instant
+    - navigation.top
+  
+  palette:
+
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+  # icons
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  icon:
+    repo:
+      fontawesome/brands/github
+
+# plugins
+
+plugins: 
+  - git-revision-date
+  - search
+
 markdown_extensions:
   - admonition
   - pymdownx.superfences
+
+# repository
+repo_url: https://github.com/Penguor/PenguorDocs
+repo_name: Penguor/PenguorDocs
+edit_uri: edit/main/docs/
+
+# social
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Penguor
+      name: Penguor on GitHub

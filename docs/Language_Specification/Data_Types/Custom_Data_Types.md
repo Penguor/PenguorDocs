@@ -1,14 +1,13 @@
 # Custom Data Types
 
-> :warning: This is a very early draft (almost a year old) and it's not reflecting the current state of Penguor.
+!!! warning
+    This is a very early draft (almost a year old) and it's not reflecting the current state of Penguor.
 
 Penguor provides a way of creating own data types depending on your needs.
 
 ## Defining data types
 
 A data type is defined in a regular Penguor Source File (.pgr). The basic syntax for a simple data type is:
-
-> :warning: not updated in a while
 
 ```Penguor
 type name < group

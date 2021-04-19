@@ -4,6 +4,7 @@ Data types are the basic values of the language.
 
 ## Data Type Groups
 
+Data type groups or static data types are a bit like interfaces or type classes in other languages.
 There are different groups for data types. The most common ones are `num` for numeric data types and `char` for data types containing characters.
 
 ## Predefined Data Types
