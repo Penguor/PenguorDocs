@@ -1,3 +1,6 @@
 .vscode/settings.json
 
 site/
+build/
+dist/
+penguorlexer.egg-info/
