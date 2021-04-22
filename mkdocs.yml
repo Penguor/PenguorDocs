@@ -18,7 +18,7 @@ theme:
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/weather-sunny
         name: Switch to dark mode
 
     # Dark mode
@@ -27,7 +27,7 @@ theme:
       primary: blue
       accent: blue
       toggle:
-        icon: material/toggle-switch
+        icon: material/weather-night
         name: Switch to light mode
 
   # icons
@@ -45,6 +45,7 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - pymdownx.highlight
   - pymdownx.superfences
 
 # repository
@@ -59,6 +60,7 @@ extra:
       link: https://github.com/Penguor
       name: Penguor on GitHub
 
+#navigation
 nav:
   - Penguor: 
     - 'index.md'
@@ -66,6 +68,10 @@ nav:
     - 'Penguor/FAQ.md'
   - Language Specification:
     - Language_Specification/index.md
+    - Language_Specification/Arrays.md
+    - Access Modifiers:
+      - Language_Specification/Modifiers/Access_Modifiers.md
+      - Language_Specification/Modifiers/Non_Access_Modifiers.md
     - Data Types:
       - Language_Specification/Data_Types/index.md
       - Language_Specification/Data_Types/Custom_Data_Types.md
@@ -73,9 +79,6 @@ nav:
     - Messages:
       - Language_Specification/Messages/Penguor-debugmsg.md
       - Language_Specification/Messages/PenguorCS-debugmsg.md
-    - Access Modifiers:
-      - Language_Specification/Modifiers/Access_Modifiers.md
-      - Language_Specification/Modifiers/Non_Access_Modifiers.md
   - Developer Documentation:
     - 'Developer_Documentation/index.md'
     - Developer_Documentation/Design_Considerations.md
