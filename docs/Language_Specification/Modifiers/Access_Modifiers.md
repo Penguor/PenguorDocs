@@ -15,11 +15,11 @@ They should be used for anything you want to share throughout large parts of you
 ```Penguor
 public data PositionData
 {
-    public float x
-    public float y
-    public float z
+    public f32 x
+    public f32 y
+    public f32 z
 
-    public PositionData(float x, float y, float z)
+    public PositionData(f32 x, f32 y, f32 z)
     {
         this.x = x
         this.y = y
@@ -35,7 +35,7 @@ dynamic system Enemy
 }
 ```
 
-The `public` modifiers make the float variables accessible from everywhere outside the container. The same applies to the constructor.
+The `public` modifiers make the `f32` variables accessible from everywhere outside the container. The same applies to the constructor.
 the `public` before the container makes it visible outside the assembly, it's not restricted to it any more.
 
 !!! note
@@ -81,12 +81,12 @@ to derived members and itself.
 ```Penguor
 system CharacterController
 {
-    protected string characterName;
+    protected str characterName;
 }
 
 system PlayerController : CharacterController
 {
-    public PlayerController(string playerName): characterName = playerName
+    public PlayerController(str playerName): characterName = playerName
 }
 ```
 
@@ -98,7 +98,7 @@ The structure will not be visible from outside the system/container/type.
 ```Penguor
 system CharacterController
 {
-    private bool beingTranslated;
+    private bool beingTranslated
     private bool beingRotated
 
     public bool beingTransformed(): return beingTranslated || beingTransformed

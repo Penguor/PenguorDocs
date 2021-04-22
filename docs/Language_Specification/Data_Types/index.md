@@ -13,7 +13,8 @@ Penguor includes some basic data types. These are handled by the compiler, but n
 
 ### Signed Integers
 
-With the exception of `i8`, signed integers
+With the exception of `i8`, signed integers are the standard types being used for numbers.
+`i32` is the standard type for signed integer numbers.
 
 | Type | Also known as | Size    | Group |
 | ---- | ------------- | ------- | ----- |
@@ -23,6 +24,8 @@ With the exception of `i8`, signed integers
 | i64  | long          | 8 bytes | num   |
 
 ### Unsigned Integers
+
+`u32` is the standard type for signed integer numbers.
 
 | Type | Also known as | Size    | Group |
 | ---- | ------------- | ------- | ----- |
@@ -40,22 +43,22 @@ With the exception of `i8`, signed integers
 
 ### Character-Containers
 
-| Type | Also known as | Size    | Group |
-| ---- | ------------- | ------- | ----- |
-| char | char          | 1 byte  | char  |
-| str  | string        | 0-?     | char  |
+| Type | Also known as | Size     | Group |
+| ---- | ------------- | -------- | ----- |
+| char | char          | 12 bytes | char  |
+| str  | string        | 0-?      | char  |
 
 ### Bool
 
-| Type | Also known as | Size    | Group |
-| ---- | ------------- | ------- | ----- |
-| bool | boolean       | 1 byte  | -     |
+| Type | Also known as | Size   | Group |
+| ---- | ------------- | ------ | ----- |
+| bool | boolean       | 1 byte | -     |
 
 ### Void
 
-| Type | Also known as | Size    | Group |
-| ---- | ------------- | ------- | ----- |
-| void | -             | -       | -     |
+| Type | Also known as | Size | Group |
+| ---- | ------------- | ---- | ----- |
+| void | -             | -    | -     |
 
 ## Custom Data Types
 
