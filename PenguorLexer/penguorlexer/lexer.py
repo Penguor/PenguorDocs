@@ -28,14 +28,14 @@ class PenguorLexer(RegexLexer):
             
             # strings
             (r"'.'", String.Char),
-            (r'".*"', String.Double),
+            (r'"(.*?)"', String.Double),
             
             #keywords
             
             #builtin types
-            (r'(i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|char|str|bool|void)', Keyword.Type),
+            (r'(?<!\w)(i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|char|str|bool|void)(?!\w)', Keyword.Type),
             
-            (r'(true|false|null)', Keyword.Constant),
-            (r'(return|if|else|while|do|for|switch|case|default)', Keyword.Reserved)
+            (r'(?<!\w)(true|false|null)(?!\w)', Keyword.Constant),
+            (r'(?<!\w)(return|if|else|while|do|for|switch|case|default)(?!\w)', Keyword.Reserved)
         ]
     }

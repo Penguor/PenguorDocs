@@ -68,7 +68,9 @@ nav:
     - 'Penguor/FAQ.md'
   - Language Specification:
     - Language_Specification/index.md
-    - Language_Specification/Arrays.md
+    - Collections:
+      - Language_Specification/Collections/index.md
+      - Language_Specification/Collections/Arrays.md
     - Access Modifiers:
       - Language_Specification/Modifiers/Access_Modifiers.md
       - Language_Specification/Modifiers/Non_Access_Modifiers.md
