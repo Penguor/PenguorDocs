@@ -9,8 +9,13 @@
 
 program = *declaration EOF
 
-declaration  = ( [ accessMod ] *nonAccessMod ( sysDecl / dataDecl / typeDecl / functionDecl / varDecl / libDecl ) )
-declaration /= usingDecl / compilerStmt
+
+declaration           = modifiedDecl / embeddedDeclaration
+
+modifiableDeclaration = sysDecl / dataDecl / typeDecl / functionDecl / varDecl / libraryDecl
+embeddedDeclaration   = usingDecl / functionDecl / stmtDecl
+
+modifiedDecl = [ accessMod ] [ nonAccessMod ] modifiableDeclaration
 
 usingDecl    = %s"using" call ENDING
 sysDecl      = %s"system" IDENTIFIER [ "<" call ] blockDecl
@@ -18,14 +23,14 @@ dataDecl     = %s"data" IDENTIFIER [ "<" call ] blockDecl
 typeDecl     = %s"type" IDENTIFIER [ "<" call ] blockDecl
 functionDecl = varExpr "(" [ parameters ] ")" declContent
 varDecl      = varExpr [ "=" conditionalOrExpr ] ENDING
-libDecl      = %s"library" IDENTIFIER *( "." IDENTIFIER ) blockDecl
+libraryDecl  = %s"library" IDENTIFIER *( "." IDENTIFIER ) blockDecl
 
-; stmtblockDecl and blockDecl are both represented by a BlockDecl in PenguorCS, 
-; with the difference that one allows StmtDecls
-stmtblockDecl = "{" *( declaration / statement ) "}"
+stmtBlockDecl = "{" *embeddedDeclaration "}"
 blockDecl     = "{" *declaration "}"
 declContent   = stmtblockDecl
               / ":" statement
+
+stmtDecl = statement
 
 statement = compilerStmt
           / blockStmt
@@ -49,7 +54,7 @@ varStmt        = varDecl
 
 ifStmt         = %s"if" "(" expression ")" statement [ %s"else" statement ]
 
-whileStmt      = %s"while" "(" expression ")" statement 
+whileStmt      = %s"while" "(" expression ")" statement
 forStmt        = %s"for" "(" varExpr ":" call ")" statement
 doStmt         = %s"do" statement %s"while" "(" expression ")" ";"
 switchStmt     = %s"switch" "(" call ")" "{" 1*( caseStmt ) [ %s"default" ":" statement ] "}"
@@ -77,29 +82,45 @@ bitshiftExpr       = additionExpr [ ( "<<" / ">>" ) bitshiftExpr ]
 additionExpr       = multiplicationExpr [ ( "+" / "-" ) additionExpr ]
 multiplicationExpr = unaryExpr [ ( "*" / "/" / "%" ) multiplicationExpr ]
 unaryExpr          = [ "!" / "+" / "-" / "~" / "++" / "--" ] base / groupingExpr
-base           = keyword / NUM / STRING / call
+base               = keyword / NUM / STRING / callExpr
 
-call           = IDENTIFIER [ "[" expression "]" ] [ ( "." call ) / ( "++" / "--" ) / ( "[" "]" ) ]
-               / callFunction [ "." call ]
-callFunction = IDENTIFIER "(" [ arguments ] ")"
+callExpr = chainableCall "." chainCall
+         / call
+         / typeCall
+
+call = idfCall
+     / postfixedCall
+     / functionCall
+     / arrayCall
+
+chainableCall = idfCall
+              / functionCall
+              / arrayCall
+
+idfCall       = IDENTIFIER
+postfixedCall = call ( "++" / "--" )
+functionCall  = call "(" [ arguments ] ")"
+arrayCall     = call *( "[" expression *( "," expression ) "]" )
+typeCall      = IDENTIFIER *( "." IDENTIFIER ) *( "[" *( "," ) "]" )
+
 
 keyword = %s"true" / %s"false" / %s"null"
 varExpr = call IDENTIFIER
 
-groupingExpr       = "(" expression ")"
+groupingExpr = "(" expression ")"
 
 parameters = varExpr *( "," varExpr )
 arguments  = expression *( "," expression )
 
 accessMod = %s"public" / %s"private" / %s"protected" / %s"restricted"
-nonAccessMod = [ %s"static" / %s"dynamic" ] [ %s"abstract" ] [ %s"const" ]
+nonAccessMod =  %s"static" / %s"dynamic" / %s"abstract" / %s"const"
 
 ; Regular grammar
 
 IDENTIFIER = ( ALPHA / %x95 ) *( ALPHA / DIGIT / %x95 ) ; %x95 = '_'
 
 ;       any base      or  base    2  ,  8  ,  16 or 10      number, may be rational, base 10 is default
-NUM = [ ( +DIGIT "x" ) / ( "0" ( "b" / "o" / "h" / "d" )) ] *DIGIT [ "." + DIGIT ]
+NUM = [ ( +DIGIT "x" ) / ( "0" ( "b" / "o" / "h" / "d" )) ] *DIGIT [ "." +DIGIT ]
 
 STRING = DQUOTE *(CHAR) DQUOTE
 
