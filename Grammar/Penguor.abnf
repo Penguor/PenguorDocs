@@ -17,7 +17,7 @@ embeddedDeclaration   = usingDecl / functionDecl / stmtDecl
 
 modifiedDecl = [ accessMod ] [ nonAccessMod ] modifiableDeclaration
 
-usingDecl    = %s"using" call ENDING
+usingDecl    = %s"using" typeCallExpr ENDING
 sysDecl      = %s"system" IDENTIFIER [ "<" call ] blockDecl
 dataDecl     = %s"data" IDENTIFIER [ "<" call ] blockDecl
 typeDecl     = %s"type" IDENTIFIER [ "<" call ] blockDecl
@@ -55,7 +55,7 @@ varStmt        = varDecl
 ifStmt         = %s"if" "(" expression ")" statement [ %s"else" statement ]
 
 whileStmt      = %s"while" "(" expression ")" statement
-forStmt        = %s"for" "(" varExpr ":" call ")" statement
+forStmt        = %s"for" "(" varExpr ":" callExpr ")" statement
 doStmt         = %s"do" statement %s"while" "(" expression ")" ";"
 switchStmt     = %s"switch" "(" call ")" "{" 1*( caseStmt ) [ %s"default" ":" statement ] "}"
 caseStmt       = %s"case" expression ":" statement
@@ -84,28 +84,20 @@ multiplicationExpr = unaryExpr [ ( "*" / "/" / "%" ) multiplicationExpr ]
 unaryExpr          = [ "!" / "+" / "-" / "~" / "++" / "--" ] base / groupingExpr
 base               = keyword / NUM / STRING / callExpr
 
-callExpr = chainableCall "." chainCall
-         / call
-         / typeCall
-
-call = idfCall
-     / postfixedCall
-     / functionCall
-     / arrayCall
+callExpr     = chainableCall ( "." chainableCall ) ( "++" / "--" )
+typeCallExpr = IDENTIFIER *( "." IDENTIFIER ) *( "[" *( "," ) "]" )
 
 chainableCall = idfCall
               / functionCall
               / arrayCall
 
-idfCall       = IDENTIFIER
-postfixedCall = call ( "++" / "--" )
-functionCall  = call "(" [ arguments ] ")"
-arrayCall     = call *( "[" expression *( "," expression ) "]" )
-typeCall      = IDENTIFIER *( "." IDENTIFIER ) *( "[" *( "," ) "]" )
+idfCall      = IDENTIFIER
+functionCall = IDENTIFIER "(" [ arguments ] ")"
+arrayCall    = IDENTIFIER *( "[" expression *( "," expression ) "]" )
 
 
 keyword = %s"true" / %s"false" / %s"null"
-varExpr = call IDENTIFIER
+varExpr = typeCallExpr IDENTIFIER
 
 groupingExpr = "(" expression ")"
 
