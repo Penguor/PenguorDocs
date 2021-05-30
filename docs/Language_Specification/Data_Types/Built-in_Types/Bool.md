@@ -34,6 +34,19 @@ while(i < 5) {
 }
 ```
 
+## Boolean Operations
+
+Boolean operators are discussed more in-depth in the [Operators](../../Operators/index.md) documentation, but the table below provides on overview
+over the operations which can be done with boolean operators in penguor.
+
+| Name        | Operator | description                                                                |
+| ----------- | -------- | -------------------------------------------------------------------------- |
+| Logical And | `&&`     | returns `true` if both variables are `true`                                |
+| Logical Or  | `||`     |  returns `true` if at least one variable is `true`                         |
+| Equals      | `==`     | returns `true` if both variables are equal                                 |
+| Not Equals  | `!=`     | returns `true` if exactly one `bool`-variable is `true` and one is `false` |
+| Not         | `!`      | inverts the `bool`-variable                                                |
+
 ## Assembly representation
 
 In assembly, boolean variables are one byte large and are either exactly `1` or `0`.
