@@ -17,7 +17,7 @@ embeddedDeclaration   = usingDecl / functionDecl / stmtDecl
 
 modifiedDecl = [ accessMod ] [ nonAccessMod ] modifiableDeclaration
 
-usingDecl    = %s"using" typeCallExpr ENDING
+usingDecl    = %s"using" typeCall ENDING
 sysDecl      = %s"system" IDENTIFIER [ "<" call ] blockDecl
 dataDecl     = %s"data" IDENTIFIER [ "<" call ] blockDecl
 typeDecl     = %s"type" IDENTIFIER [ "<" call ] blockDecl
@@ -82,10 +82,13 @@ bitshiftExpr       = additionExpr [ ( "<<" / ">>" ) bitshiftExpr ]
 additionExpr       = multiplicationExpr [ ( "+" / "-" ) additionExpr ]
 multiplicationExpr = unaryExpr [ ( "*" / "/" / "%" ) multiplicationExpr ]
 unaryExpr          = [ "!" / "+" / "-" / "~" / "++" / "--" ] base / groupingExpr
-base               = keyword / NUM / STRING / callExpr
+base               = keyword / NUM / STRING / char / callExpr
 
 callExpr     = chainableCall ( "." chainableCall ) ( "++" / "--" )
-typeCallExpr = IDENTIFIER *( "." IDENTIFIER ) *( "[" *( "," ) "]" )
+typeCallExpr = typeCall / arrayTypeCall
+
+typeCall = IDENTIFIER *( "." IDENTIFIER )
+arrayTypeCall = IDENTIFIER *( "." IDENTIFIER ) 1*( "[" *( "," ) "]" )
 
 chainableCall = idfCall
               / functionCall
@@ -115,6 +118,8 @@ IDENTIFIER = ( ALPHA / %x95 ) *( ALPHA / DIGIT / %x95 ) ; %x95 = '_'
 NUM = [ ( +DIGIT "x" ) / ( "0" ( "b" / "o" / "h" / "d" )) ] *DIGIT [ "." +DIGIT ]
 
 STRING = DQUOTE *(CHAR) DQUOTE
+
+char = "'" CHAR "'"
 
 ENDING = ";" / NEWLINE
 NEWLINE = LF / CRLF
