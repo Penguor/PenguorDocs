@@ -75,6 +75,8 @@ nav:
       - Language_Specification/Modifiers/Access_Modifiers.md
       - Language_Specification/Modifiers/Non_Access_Modifiers.md
     - Data Types:
+      - Built-in Types:
+        - Language_Specification/Data_Types/Built-in_Types/Bool.md
       - Language_Specification/Data_Types/index.md
       - Language_Specification/Data_Types/Custom_Data_Types.md
       - Language_Specification/Data_Types/Groups.md
