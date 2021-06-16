@@ -9,6 +9,15 @@ class PenguorLexer(RegexLexer):
 
     tokens = {
         'root': [
+            #keywords
+            
+            # builtin types
+            (r'(?<!\w)(i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|char|str|bool|void)(?!\w)', Keyword.Type),
+
+            (r'(?<!\w)(true|false|null)(?!\w)', Keyword.Constant),
+            (r'(?<!\w)(return|if|else|while|do|for|switch|case|default)(?!\w)', Keyword.Reserved),
+            
+            # names
             (r'[A-Za-z_]\w*\s*(?=\()', Name.Function),
             (r'(?<=system)\s+[A-Za-z_]\w*', Name.Class),
             (r'(?<=data)\s+[A-Za-z_]\w*', Name.Class),
@@ -28,14 +37,6 @@ class PenguorLexer(RegexLexer):
             
             # strings
             (r"'.'", String.Char),
-            (r'"(.*?)"', String.Double),
-            
-            #keywords
-            
-            #builtin types
-            (r'(?<!\w)(i8|i16|i32|i64|u8|u16|u32|u64|f32|f64|char|str|bool|void)(?!\w)', Keyword.Type),
-            
-            (r'(?<!\w)(true|false|null)(?!\w)', Keyword.Constant),
-            (r'(?<!\w)(return|if|else|while|do|for|switch|case|default)(?!\w)', Keyword.Reserved)
+            (r'"(.*?)"', String.Double)
         ]
     }

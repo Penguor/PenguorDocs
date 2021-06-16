@@ -82,9 +82,11 @@ bitshiftExpr       = additionExpr [ ( "<<" / ">>" ) bitshiftExpr ]
 additionExpr       = multiplicationExpr [ ( "+" / "-" ) additionExpr ]
 multiplicationExpr = unaryExpr [ ( "*" / "/" / "%" ) multiplicationExpr ]
 unaryExpr          = [ "!" / "+" / "-" / "~" / "++" / "--" ] base / groupingExpr
-base               = keyword / NUM / STRING / char / callExpr
+base               = keyword / NUM / STRING / char / incrementExpr
 
-callExpr     = chainableCall ( "." chainableCall ) ( "++" / "--" )
+incrementExpr = callExpr [ "++" / "--" ]
+
+callExpr     = chainableCall ( "." chainableCall )
 typeCallExpr = typeCall / arrayTypeCall
 
 typeCall = IDENTIFIER *( "." IDENTIFIER )

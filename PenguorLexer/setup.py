@@ -10,7 +10,7 @@ penguor=penguorlexer.lexer:PenguorLexer
 
 setuptools.setup(
     name="penguorlexer", # Replace with your own username
-    version="0.0.3",
+    version="0.0.4",
     author_email="coozypenguin@gmail.com",
     description="Pygments lexer for the Penguor language",
     long_description=long_description,

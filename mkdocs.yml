@@ -68,6 +68,13 @@ nav:
     - 'Penguor/FAQ.md'
   - Language Specification:
     - Language_Specification/index.md
+    - Language Structures:
+      - Language_Specification/Language_Structures/Declarations.md
+      - Language_Specification/Language_Structures/Statements.md
+      - Language_Specification/Language_Structures/Expressions.md
+    - Control Structures:
+      - Language_Specification\Control_Structures\If.md
+      - Language_Specification/Control_Structures/While.md
     - Collections:
       - Language_Specification/Collections/index.md
       - Language_Specification/Collections/Arrays.md

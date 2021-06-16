@@ -35,3 +35,5 @@ The Penguor language has its own debug message category, `PGR`. This file contai
 - `PGR-0020` The symbol '{0}' does not exist in the current scope
 - `PGR-0021` Could not find library '{0}'
 - `PGR-0022` Postfixed calls may not be chained
+- `PGR-0023` You may not put statement inside of this block
+- `PGR-0024` 
