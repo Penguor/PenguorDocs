@@ -38,6 +38,7 @@ statement = compilerStmt
           / ifStmt
           / whileStmt
           / forStmt
+          / foreachStmt
           / doStmt
           / switchStmt
           / expressionStmt
@@ -47,15 +48,11 @@ compilerDirective = %s"safety" ( "0" / "1" / "2" )
 
 blockStmt      = "{" *statement "}"
 
-; the difference between a varStmt and a varDecl
-; is that the varDecl is only called from declaration otherwise
-; the varStmt may not have any access modifiers
-varStmt        = varDecl
-
 ifStmt         = %s"if" "(" expression ")" statement [ %s"else" statement ]
 
 whileStmt      = %s"while" "(" expression ")" statement
-forStmt        = %s"for" "(" varExpr ":" callExpr ")" statement
+forStmt        = %s"for" "(" [ expression ] ";" [ expression ] ";" [ expression ] ")" statement
+foreachStmt    = %s"for" "(" varExpr ":" callExpr ")" statement
 doStmt         = %s"do" statement %s"while" "(" expression ")" ";"
 switchStmt     = %s"switch" "(" call ")" "{" 1*( caseStmt ) [ %s"default" ":" statement ] "}"
 caseStmt       = %s"case" expression ":" statement
@@ -69,8 +66,10 @@ expressionStmt = expression ENDING
 
 expression     = assignmentExpr
 
-assignmentExpr     = conditionalOrExpr / call assignmentRight
+assignmentExpr     = conditionalOrExpr / assignmentLeft assignmentRight
+assignmentLeft     = varExpr / call
 assignmentRight    = ( "=" / "+=" / "-=" / "*=" / "/=" / "%=" / "<<=" / ">>=" / "&=" / "|=" / "^=" ) conditionalOrExpr
+
 conditionalOrExpr  = conditionalAndExpr [ "||" conditionalOrExpr ]
 conditionalAndExpr = bitwiseOrExpr [ "&&" conditionalAndExpr ]
 bitwiseOrExpr      = bitwiseXorExpr [ "|" bitwiseOrExpr ]

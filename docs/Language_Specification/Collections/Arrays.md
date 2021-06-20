@@ -17,6 +17,9 @@ bool[][] uwu   // nested array
 
 i32[,] dimensionalArray1   // 2-dimensional array
 i32[,,] dimensionalArray2  // 3-dimensional array
+
+// nested array with a 2-dimensional array inside of a one-dimensional array
+char[][,]
 ```
 
 ## Initialisation
@@ -40,7 +43,7 @@ i32[,] twoD = new i32[5, 4]
 
 ### Initialisation with Values
 
-Arrays can be initialised with values by providing a [collection](./Collections.md) of values after the type instead of a number inside of the square brackets.
+Arrays can be initialised with values by providing a [collection](./index.md) of values after the type instead of a number inside of the square brackets.
 Collections can also directly be assigned to an array.
 
 ```Penguor
