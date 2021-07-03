@@ -13,11 +13,13 @@ program = *declaration EOF
 declaration           = modifiedDecl / embeddedDeclaration
 
 modifiableDeclaration = sysDecl / dataDecl / typeDecl / functionDecl / varDecl / libraryDecl
-embeddedDeclaration   = usingDecl / functionDecl / stmtDecl
+embeddedDeclaration   = usingDecl  / externDecl / functionDecl / stmtDecl
 
 modifiedDecl = [ accessMod ] [ nonAccessMod ] modifiableDeclaration
 
 usingDecl    = %s"using" typeCall ENDING
+externDecl   = %s"extern" varExpr "(" [ parameters ] ")" ENDING
+
 sysDecl      = %s"system" IDENTIFIER [ "<" call ] blockDecl
 dataDecl     = %s"data" IDENTIFIER [ "<" call ] blockDecl
 typeDecl     = %s"type" IDENTIFIER [ "<" call ] blockDecl
@@ -34,13 +36,15 @@ stmtDecl = statement
 
 statement = compilerStmt
           / blockStmt
-          / varStmt
           / ifStmt
           / whileStmt
           / forStmt
           / foreachStmt
           / doStmt
           / switchStmt
+          / assemblyStmt
+          / returnStmt
+          / varStmt
           / expressionStmt
 
 compilerStmt = "#" compilerDirective ENDING
@@ -60,6 +64,8 @@ caseStmt       = %s"case" expression ":" statement
 assemblyStmt   = %s"asm" "(" arguments ")" DQUOTE 'assembly code' DQUOTE ; contains (NASM) assembly, platform specific and intended for standard library, assembly code is a string
 
 returnStmt     = %s"return" [ expression ] ENDING
+
+varStmt        = varExpr ENDING
 
 expressionStmt = expression ENDING
 

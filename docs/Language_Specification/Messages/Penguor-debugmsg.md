@@ -36,4 +36,4 @@ The Penguor language has its own debug message category, `PGR`. This file contai
 - `PGR-0021` Could not find library '{0}'
 - `PGR-0022` Postfixed calls may not be chained
 - `PGR-0023` You may not put statement inside of this block
-- `PGR-0024` 
+- `PGR-0024` Operator '{0}' cannot be used on '{1}' and '{2}'
